@@ -1,0 +1,17 @@
+{
+   "title": "Replace this",
+   "source": "./src/js",
+   "destination": "./documentation",
+   "excludes": ["\\.test\\.js$"],
+   "test": {
+      "type": "mocha",
+      "source": "./src/js",
+      "includes": ["\\.test\\.js$"]
+   },
+   "plugins": [
+      {"name": "esdoc-es7-plugin"}
+   ],
+   "styles": ["./build/bundle.css"],
+   "scripts": ["./build/bundle.js"],
+   "lint": true
+}
