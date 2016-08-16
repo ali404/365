@@ -9,3 +9,19 @@ export const addProject = (projectName) => {
         projectName
     }
 }
+
+export const deleteProject = (id, projectName) => {
+    return {
+        type: DELETE_PROJECT,
+        id: id,
+        projectName
+    }
+}
+
+export const editProject = (id, projectName) => {
+    return {
+        type: EDIT_PROJECT,
+        id,
+        projectName
+    }
+}

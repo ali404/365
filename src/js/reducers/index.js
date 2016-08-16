@@ -14,6 +14,21 @@ const projects = (state = {}, action) => {
             })
             break
 
+        case DELETE_PROJECT:
+            return Object.assign({}, state, {
+                [action.id]: undefined
+            })
+            break
+
+        case EDIT_PROJECT:
+            return Object.assign({}, state, {
+                [action.id]: {
+                    id: action.id,
+                    projectName: action.projectName
+                }
+            })
+            break
+
         default:
             return state
     }
