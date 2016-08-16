@@ -13,10 +13,14 @@
     "doc": "esdoc -c ./esdoc.json"
   },
   "dependencies": {
-    "flux": "^2.1.1",
     "keymirror": "^0.1.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.6.1",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
     "superagent": "^2.1.0"
   },
   "devDependencies": {
@@ -56,5 +60,12 @@
   },
   "author": "",
   "license": "ISC",
-  "repository": ""
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ali404/365.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ali404/365/issues"
+  },
+  "homepage": "https://github.com/ali404/365#readme"
 }
