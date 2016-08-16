@@ -1,7 +1,8 @@
 import React from 'react'
-import Project from './Project.react'
 
-let ProjectList = ({projects}) => {
+import Project from './Project'
+
+const ProjectList = ({projects}) => {
     let projectsList = []
     for(let projectId in projects) {
         projectsList.push(

@@ -7,7 +7,10 @@ import {syncHistoryWithStore} from 'react-router-redux'
 import {Router, Route, browserHistory} from 'react-router'
 
 import reducer from './reducers/index'
-import App from './components/App.react'
+
+import App from './routes/App'
+import Project from './routes/Project'
+import AddProject from './routes/AddProject'
 
 const loggerMiddleware = createLogger()
 
@@ -23,7 +26,10 @@ const history = syncHistoryWithStore(browserHistory, store)
 render(
     <Provider store={store}>
         <Router history={history}>
-            <Route path="/" component={App} />
+            <Route component={App}>
+                <Route path="/" component={AddProject} />
+                <Route path="/projects/:projectId" component={Project} />
+            </Route>
         </Router>
     </Provider>,
     document.getElementById('365')

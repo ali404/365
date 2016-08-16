@@ -1,12 +1,13 @@
 import React from 'react'
-import AddProject from '../containers/AddProject'
+import Menu from '../components/Menu'
 import CurrentProjectList from '../containers/CurrentProjectList'
 
-const App = () => (
+const AppRoute = ({children}) => (
     <div>
-        <AddProject />
+        <Menu />
+        {children}
         <CurrentProjectList />
     </div>
 )
 
-export default App
+export default AppRoute
