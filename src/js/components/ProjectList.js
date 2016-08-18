@@ -1,12 +1,12 @@
 import React from 'react'
 
-import Project from './Project'
+import ProjectLink from './ProjectLink'
 
 const ProjectList = ({projects}) => {
     let projectsList = []
     for(let projectId in projects) {
         projectsList.push(
-            <Project
+            <ProjectLink
                 key={projectId}
                 {...projects[projectId]}
             />

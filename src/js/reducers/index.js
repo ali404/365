@@ -1,6 +1,10 @@
 import {combineReducers} from 'redux'
 import {routerReducer} from 'react-router-redux'
-import {ADD_PROJECT} from '../constants/actionTypes'
+import {
+    ADD_PROJECT,
+    DELETE_PROJECT,
+    EDIT_PROJECT
+} from '../constants/actionTypes'
 
 const projects = (state = {}, action) => {
     switch(action.type) {
@@ -12,12 +16,15 @@ const projects = (state = {}, action) => {
                     id: action.id
                 }
             })
+
             break
 
         case DELETE_PROJECT:
-            return Object.assign({}, state, {
-                [action.id]: undefined
-            })
+            let newState = Object.assign({}, state)
+            newState[action.id] = Object.assign({}, state[action.id])
+            delete newState[action.id]
+            return newState
+
             break
 
         case EDIT_PROJECT:
@@ -27,6 +34,7 @@ const projects = (state = {}, action) => {
                     projectName: action.projectName
                 }
             })
+
             break
 
         default:
