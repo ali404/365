@@ -12,15 +12,16 @@ const projects = (state = {
     isFetching: false,
     items: {}
 }, action) => {
+    let project = action.project || ''
     switch(action.type) {
         // add the date created
         case ADD_PROJECT:
             return Object.assign({}, state, {
                 items: {
                     ...state.items,
-                    [action.id]: {
-                        projectName: action.projectName,
-                        id: action.id,
+                    [project.id]: {
+                        projectName: project.projectName,
+                        id: project.id,
                         dateCreated: action.receivedAt,
                         lastUpdated: action.receivedAt
                     }

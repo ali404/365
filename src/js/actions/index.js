@@ -5,6 +5,10 @@ import {
     FETCH_PROJECTS_REQUEST,
     FETCH_PROJECTS_ERROR,
     FETCH_PROJECTS_SUCCESS,
+    SAVE_PROJECT_REQUEST,
+    SAVE_PROJECT_SUCCESS,
+    DELETE_PROJECT_REQUEST,
+    DELETE_PROJECT_SUCCESS,
     viewAction,
     serverAction
 } from '../constants/actionTypes'
@@ -12,16 +16,22 @@ import {
 import {generateRandString} from '../utils/AppUtil'
 import ApiUtil from '../utils/ApiUtil'
 
-export const addProject = (projectName) => {
+const createProject = (projectName) => {
+    return {
+        id: generateRandString(10),
+        projectName
+    }
+}
+
+export const addProjectToCache = (project) => {
     return viewAction({
         type: ADD_PROJECT,
-        id: generateRandString(8),
-        receivedAt: Date.now(),
-        projectName
+        project,
+        receivedAt: Date.now()
     })
 }
 
-export const deleteProject = (id, projectName) => {
+export const deleteProjectFromCache = (id, projectName) => {
     return viewAction({
         type: DELETE_PROJECT,
         id: id,
@@ -29,7 +39,7 @@ export const deleteProject = (id, projectName) => {
     })
 }
 
-export const editProject = (id, projectName) => {
+export const editProjectToCache = (id, projectName) => {
     return viewAction({
         type: EDIT_PROJECT,
         id,
@@ -44,10 +54,10 @@ const requestProjects = () => {
     })
 }
 
-const receiveProjects = (payload) => {
+const receiveProjects = (projects) => {
     return serverAction({
         type: FETCH_PROJECTS_SUCCESS,
-        projects: payload
+        projects
     })
 }
 
@@ -58,10 +68,65 @@ export function fetchProjects() {
         return ApiUtil
             .fetchProjects()
             .then(payload => {
-                console.log(payload)
                 dispatch(receiveProjects(payload))
             })
     }
 }
 
 // CONST REQUESTPROEJCTS ERROR
+
+const requestSaveProject = () => {
+    return serverAction({
+        type: SAVE_PROJECT_REQUEST
+    })
+}
+
+const receiveSaveProject = (project) => {
+    return serverAction({
+        type: SAVE_PROJECT_SUCCESS
+    })
+}
+
+export function saveProject(projectName) {
+    return function(dispatch) {
+        let project = createProject(projectName)
+
+        dispatch(addProject(project))
+        dispatch(requestSaveProject())
+
+        return ApiUtil
+            .saveProject(project)
+            .then(payload => {
+                dispatch(receiveSaveProject(payload))
+            })
+    }
+}
+
+// CONST SAVEPROJECT ERROR
+
+// const requestDeleteProject = () => {
+//     return serverAction({
+//         type: DELETE_PROJECT_REQUEST
+//     })
+// }
+//
+// const receiveDeleteProject = () => {
+//     return serverAction({
+//         type: DELETE_PROJECT_SUCCESS
+//     })
+// }
+//
+// export function deleteProject(projectId) {
+//     return function(dispatch) {
+//         dispatch(removeProjectFromCache(projectId))
+//         dispatch(requestDeleteProject(projectId))
+//
+//         return ApiUtil
+//             .deleteProject(projectId)
+//             .then(payload => {
+//                 dispatch(receiveDeleteProject(payload))
+//             })
+//     }
+// }
+
+// const delete project error

@@ -27,9 +27,7 @@ let store = createStore(
 
 const history = syncHistoryWithStore(browserHistory, store)
 
-store.dispatch(fetchProjects()).then(() => {
-    console.log(store.getState())
-})
+store.dispatch(fetchProjects())
 
 render(
     <Provider store={store}>

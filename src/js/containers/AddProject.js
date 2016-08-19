@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addProject} from '../actions/index'
+import {saveProject} from '../actions/index'
 
 let AddProject = ({dispatch}) => {
     let input
@@ -12,8 +12,9 @@ let AddProject = ({dispatch}) => {
                 if(!input.value.trim()) {
                     return
                 }
-                dispatch(addProject(input.value))
-                input.value = ''
+                dispatch(saveProject(input.value)).then(() => {
+                    input.value = ''
+                })
             }}>
                 <input ref={node => {
                     input = node
