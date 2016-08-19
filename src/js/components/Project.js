@@ -16,10 +16,10 @@ const Project = ({id, project, onDeleteClick}) => {
                 <div>
                     Id: {project.id}
                 </div>
-                <div onClick={e => {
+                <button onClick={e => {
                     e.preventDefault()
                     onDeleteClick(project.id, project.projectName)
-                }}>Delete</div>
+                }}>Delete</button>
             </div>
         )
     }
