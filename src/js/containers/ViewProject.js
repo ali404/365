@@ -5,7 +5,7 @@ import {deleteProject} from '../actions/index'
 
 function mapStateToProps(state, {id}) {
     return {
-        project: state.projects[id]
+        project: state.projects.items[id]
     }
 }
 

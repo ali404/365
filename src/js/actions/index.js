@@ -2,17 +2,21 @@ import {
     ADD_PROJECT,
     DELETE_PROJECT,
     EDIT_PROJECT,
+    FETCH_PROJECTS_REQUEST,
+    FETCH_PROJECTS_ERROR,
+    FETCH_PROJECTS_SUCCESS,
     viewAction,
     serverAction
 } from '../constants/actionTypes'
 
 import {generateRandString} from '../utils/AppUtil'
+import ApiUtil from '../utils/ApiUtil'
 
 export const addProject = (projectName) => {
     return viewAction({
         type: ADD_PROJECT,
         id: generateRandString(8),
-        dateCreated: Date.now(),
+        receivedAt: Date.now(),
         projectName
     })
 }
@@ -29,6 +33,35 @@ export const editProject = (id, projectName) => {
     return viewAction({
         type: EDIT_PROJECT,
         id,
-        projectName
+        projectName,
+        receivedAt: Date.now()
     })
 }
+
+const requestProjects = () => {
+    return serverAction({
+        type: FETCH_PROJECTS_REQUEST
+    })
+}
+
+const receiveProjects = (payload) => {
+    return serverAction({
+        type: FETCH_PROJECTS_SUCCESS,
+        projects: payload
+    })
+}
+
+export function fetchProjects() {
+    return function(dispatch) {
+        dispatch(requestProjects())
+
+        return ApiUtil
+            .fetchProjects()
+            .then(payload => {
+                console.log(payload)
+                dispatch(receiveProjects(payload))
+            })
+    }
+}
+
+// CONST REQUESTPROEJCTS ERROR

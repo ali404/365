@@ -9,6 +9,8 @@ import {Router, Route, browserHistory} from 'react-router'
 
 import reducer from './reducers/index'
 
+import {fetchProjects} from './actions/index'
+
 import App from './routes/App'
 import Project from './routes/Project'
 import AddProject from './routes/AddProject'
@@ -24,6 +26,10 @@ let store = createStore(
 )
 
 const history = syncHistoryWithStore(browserHistory, store)
+
+store.dispatch(fetchProjects()).then(() => {
+    console.log(store.getState())
+})
 
 render(
     <Provider store={store}>

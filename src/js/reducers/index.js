@@ -1,19 +1,29 @@
 import {combineReducers} from 'redux'
-import {routerReducer} from 'react-router-redux'
+import {routerReducer as routing} from 'react-router-redux'
 import {
     ADD_PROJECT,
     DELETE_PROJECT,
-    EDIT_PROJECT
+    EDIT_PROJECT,
+    FETCH_PROJECTS_SUCCESS,
+    FETCH_PROJECTS_REQUEST
 } from '../constants/actionTypes'
 
-const projects = (state = {}, action) => {
+const projects = (state = {
+    isFetching: false,
+    items: {}
+}, action) => {
     switch(action.type) {
         // add the date created
         case ADD_PROJECT:
             return Object.assign({}, state, {
-                [action.id]: {
-                    projectName: action.projectName,
-                    id: action.id
+                items: {
+                    ...state.items,
+                    [action.id]: {
+                        projectName: action.projectName,
+                        id: action.id,
+                        dateCreated: action.receivedAt,
+                        lastUpdated: action.receivedAt
+                    }
                 }
             })
 
@@ -21,18 +31,33 @@ const projects = (state = {}, action) => {
 
         case DELETE_PROJECT:
             let newState = Object.assign({}, state)
-            newState[action.id] = Object.assign({}, state[action.id])
-            delete newState[action.id]
+            newState.items = Object.assign({}, state.items)
+            delete newState.items[action.id]
             return newState
 
             break
 
-        case EDIT_PROJECT:
+        // case EDIT_PROJECT:
+        //     return Object.assign({}, state, {
+        //         [action.id]: {
+        //             id: action.id,
+        //             projectName: action.projectName
+        //         }
+        //     })
+        //
+        //     break
+
+        case FETCH_PROJECTS_REQUEST:
             return Object.assign({}, state, {
-                [action.id]: {
-                    id: action.id,
-                    projectName: action.projectName
-                }
+                isFetching: true
+            })
+            break
+
+        case FETCH_PROJECTS_SUCCESS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                items: action.projects,
+                lastUpdated: action.recievedAt
             })
 
             break
@@ -44,7 +69,7 @@ const projects = (state = {}, action) => {
 
 const app = combineReducers({
     projects,
-    routing: routerReducer
+    routing
 })
 
 export default app
