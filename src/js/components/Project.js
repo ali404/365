@@ -9,17 +9,17 @@ const Project = ({id, project, onDeleteClick}) => {
     }
     else {
         message = (
-            <div>
-                <div>
-                    Project Name: {project.projectName}
-                </div>
-                <div>
-                    Id: {project.id}
-                </div>
-                <button onClick={e => {
-                    e.preventDefault()
-                    onDeleteClick(project.id, project.projectName)
-                }}>Delete</button>
+            <div className="project">
+                <h1 className="project-title">
+                    {project.projectName}
+                </h1>
+                <button
+                    onClick={e => {
+                        e.preventDefault()
+                        onDeleteClick(project.id, project.projectName)
+                    }}>
+                    Delete
+                </button>
             </div>
         )
     }

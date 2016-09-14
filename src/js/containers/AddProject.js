@@ -1,32 +1,49 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {saveProject} from '../actions/index'
 
-let AddProject = ({dispatch}) => {
-    let input
+class AddProjectClass extends Component {
+    constructor() {
+        super()
 
-    return (
-        <div>
-            <form onSubmit={e => {
-                e.preventDefault()
-                if(!input.value.trim()) {
-                    return
-                }
-                dispatch(saveProject(input.value)).then(() => {
-                    input.value = ''
-                })
-            }}>
-                <input ref={node => {
-                    input = node
-                }} />
-                <button type="submit">
-                    Add Project
-                </button>
-            </form>
-        </div>
-    )
+        this.state = {
+            inputVal: ''
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="add-form">
+                    <input
+                        className="add-input"
+                        value={this.state.inputVal}
+                        onKeyUp={e => {
+                            if(e.keyCode === 13) {
+                                e.preventDefault()
+                                if(!e.target.value.trim()) {
+                                    return
+                                }
+                                this.props.dispatch(saveProject(e.target.value))
+                                    .then(() => {
+                                        this.setState({
+                                            inputVal: ''
+                                        })
+                                    })
+                            }
+                        }}
+                        onChange={e => {
+                            this.setState({
+                                inputVal: e.target.value
+                            })
+                        }}
+                    />
+                </div>
+            </div>
+        )
+    }
 }
 
-AddProject = connect()(AddProject)
+let AddProject = connect()(AddProjectClass)
 
 export default AddProject

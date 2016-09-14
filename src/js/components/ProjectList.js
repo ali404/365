@@ -8,13 +8,14 @@ const ProjectList = ({projects}) => {
         projectsList.push(
             <ProjectLink
                 key={projectId}
+                className="project-link"
                 {...projects[projectId]}
             />
         )
     }
 
     return (
-        <ul>
+        <ul className="project-list">
             {projectsList}
         </ul>
     )
