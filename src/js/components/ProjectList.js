@@ -9,7 +9,8 @@ const ProjectList = ({projects}) => {
             <ProjectLink
                 key={projectId}
                 className="project-link"
-                {...projects[projectId]}
+                id={projects[projectId].id}
+                projectName={projects[projectId].projectName}
             />
         )
     }

@@ -18,6 +18,7 @@ class AddProjectClass extends Component {
                     <input
                         className="add-input"
                         value={this.state.inputVal}
+                        placeholder="Add Project"
                         onKeyUp={e => {
                             if(e.keyCode === 13) {
                                 e.preventDefault()
