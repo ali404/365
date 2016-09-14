@@ -14,6 +14,7 @@ import {fetchProjects} from './actions/index'
 import App from './routes/App'
 import Project from './routes/Project'
 import AddProject from './routes/AddProject'
+import Projects from './routes/Projects'
 
 const loggerMiddleware = createLogger()
 
@@ -35,6 +36,7 @@ render(
             <Route component={App}>
                 <Route path="/" component={AddProject} />
                 <Route path="/projects/:projectId" component={Project} />
+                <Route path="/projects" component={Projects} />
             </Route>
         </Router>
     </Provider>,

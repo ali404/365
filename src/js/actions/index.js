@@ -7,8 +7,10 @@ import {
     FETCH_PROJECTS_SUCCESS,
     SAVE_PROJECT_REQUEST,
     SAVE_PROJECT_SUCCESS,
+    SAVE_PROJECT_ERROR,
     DELETE_PROJECT_REQUEST,
     DELETE_PROJECT_SUCCESS,
+    DELETE_PROJECT_ERROR,
     viewAction,
     serverAction
 } from '../constants/actionTypes'
@@ -23,7 +25,7 @@ const createProject = (projectName) => {
     }
 }
 
-export const addProjectToCache = (project) => {
+export const addProject = (project) => {
     return viewAction({
         type: ADD_PROJECT,
         project,
@@ -31,7 +33,7 @@ export const addProjectToCache = (project) => {
     })
 }
 
-export const deleteProjectFromCache = (id, projectName) => {
+export const removeProject = (id, projectName) => {
     return viewAction({
         type: DELETE_PROJECT,
         id: id,
@@ -39,7 +41,7 @@ export const deleteProjectFromCache = (id, projectName) => {
     })
 }
 
-export const editProjectToCache = (id, projectName) => {
+export const configureProject = (id, projectName) => {
     return viewAction({
         type: EDIT_PROJECT,
         id,
@@ -102,31 +104,32 @@ export function saveProject(projectName) {
     }
 }
 
+
 // CONST SAVEPROJECT ERROR
 
-// const requestDeleteProject = () => {
-//     return serverAction({
-//         type: DELETE_PROJECT_REQUEST
-//     })
-// }
-//
-// const receiveDeleteProject = () => {
-//     return serverAction({
-//         type: DELETE_PROJECT_SUCCESS
-//     })
-// }
-//
-// export function deleteProject(projectId) {
-//     return function(dispatch) {
-//         dispatch(removeProjectFromCache(projectId))
-//         dispatch(requestDeleteProject(projectId))
-//
-//         return ApiUtil
-//             .deleteProject(projectId)
-//             .then(payload => {
-//                 dispatch(receiveDeleteProject(payload))
-//             })
-//     }
-// }
+const requestDeleteProject = () => {
+    return serverAction({
+        type: DELETE_PROJECT_REQUEST
+    })
+}
+
+const receiveDeleteProject = () => {
+    return serverAction({
+        type: DELETE_PROJECT_SUCCESS
+    })
+}
+
+export function deleteProject(projectId) {
+    return function(dispatch) {
+        dispatch(removeProject(projectId))
+        dispatch(requestDeleteProject(projectId))
+
+        return ApiUtil
+            .deleteProject(projectId)
+            .then(payload => {
+                dispatch(receiveDeleteProject(payload))
+            })
+    }
+}
 
 // const delete project error

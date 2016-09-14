@@ -6,7 +6,6 @@ const AppRoute = ({children}) => (
     <div>
         <Menu />
         {children}
-        <CurrentProjectList />
     </div>
 )
 

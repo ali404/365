@@ -13,7 +13,7 @@ if(process.env.NODE_ENV === 'production') {
 
 app.use(express.static('../build'))
 
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'})
     res.end(fs.readFileSync('index.html'))
 })
